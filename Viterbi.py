@@ -101,7 +101,7 @@ def viterbi(sequence):
             currHot = hotToHot
 
         hotToCold = trans[hot][cold-1]*obs[int(s)][cold-1]* hotPrevious
-        coldToCold = trans[cold][cold]*obs[int(s)][cold-1]* coldPrevious
+        coldToCold = trans[cold][cold-1]*obs[int(s)][cold-1]* coldPrevious
 
         if hotToCold > coldToCold:
             coldStat = hot
@@ -115,16 +115,18 @@ def viterbi(sequence):
 
         hotPrevious = currHot
         coldPrevious = currCold
-        l = len(weatherSeqList)-1
+    l = len(weatherSeqList)-1
 
-        if(weatherSeqList[l][0]>weatherSeqList[l][1]):
-            finalState=hot
-        else:
-            finalState=cold
+    if(weatherSeqList[l][0]>weatherSeqList[l][1]):
+        finalState=hot
+    else:
+        finalState=cold
 
-        weatherSeq = traceback(finalState,bkPointer)
-        #----76-----
-    print ('here')
+    weatherSeq = traceback(finalState,bkPointer)
+    print('Weather sequence:\n')
+    print(weatherSeq)
+
+
 
 #Program Execution begins here
 sequence = input('Enter the sequence (Should be combinations of 1,2,3):\n')
