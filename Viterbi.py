@@ -66,8 +66,10 @@ def printState(finalState,bkPointer):
         finalState=i[finalState-1]
 
     output=list(reversed(output))
-    print('Most likely weather sequence based on the given data:\n')
+    print("--------------------------------------------------------")
+    print('Most likely weather sequence based on the given data:')
     print(output[1:])
+    print("--------------------------------------------------------")
 
 
 #Implementing Viterbi's algorithm to compute the most likely weather
@@ -80,10 +82,16 @@ def viterbi(sequence):
     bkPointer = list()#is this really needed?
     trans,obs= initializeProbabilities()
 
+    print('Calculating Probabilities...\n')
     #sequenceList[1] gives the first element
     hotPrevious=trans[start][hot-1] * obs[int(sequenceList[0])][hot-1]
     coldPrevious=trans[start][cold-1] * obs[int(sequenceList[0])][cold-1]
     weatherSeqList.append([hotPrevious,coldPrevious])
+
+    print("--------------------------------------------------------")
+    print("Previous hot : "+str(hotPrevious)+" , Previous Cold : "+str(coldPrevious)+"\n")
+
+    print("HotToHot | cold To Hot | hot To Cold | Cold To Cold\n")
 
     for s in sequenceList:
         hotToHot = trans[hot][hot-1]*obs[int(s)][hot-1]* hotPrevious
@@ -107,7 +115,7 @@ def viterbi(sequence):
 
         bkPointer.append([hotStat, coldStat])
         weatherSeqList.append([currHot,currCold])
-
+        print("probabilities-->"+str(hotToHot) + " | " + str(coldToHot) + " | " + str(hotToCold) + " | " + str(coldToCold))
         hotPrevious = currHot
         coldPrevious = currCold
     l = len(weatherSeqList)-1
@@ -123,6 +131,6 @@ def viterbi(sequence):
 
 
 #Program Execution begins here
-sequence = input('Enter the sequence (Should be combinations of 1,2,3):\n')
+sequence = input('Enter the sequence (Should be combinations of 1,2,3):')
 print (sequence)
 viterbi(sequence)
