@@ -50,15 +50,7 @@ def initializeProbabilities():
     }
     return  trans,obs
 
-#computing probability for each element in the list
-def computeProbability(listVals):
-    prob = 1
-    for val in listVals:
-        prob*=val
-    return prob
-
-
-def traceback(finalState,bkPointer):
+def printState(finalState,bkPointer):
     #print('in traceback')
     output = list()
     if finalState == 1:
@@ -73,11 +65,9 @@ def traceback(finalState,bkPointer):
             output.append('COLD')
         finalState=i[finalState-1]
 
-    #output=list(reversed(output))
-    outputLen = len(output)
-    print('Weather sequence:\n')
-    for i in (0,outputLen-1):
-        print(output[i]+" ")
+    output=list(reversed(output))
+    print('Most likely weather sequence based on the given data:\n')
+    print(output[1:])
 
 
 #Implementing Viterbi's algorithm to compute the most likely weather
@@ -127,7 +117,7 @@ def viterbi(sequence):
     else:
         finalState=cold
 
-    weatherSeq = traceback(finalState,bkPointer)
+    printState(finalState,bkPointer)
 
 
 
