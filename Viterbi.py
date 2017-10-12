@@ -73,7 +73,12 @@ def traceback(finalState,bkPointer):
             output.append('COLD')
         finalState=i[finalState-1]
 
-    return output.reverse()
+    #output=list(reversed(output))
+    outputLen = len(output)
+    print('Weather sequence:\n')
+    for i in (0,outputLen-1):
+        print(output[i]+" ")
+
 
 #Implementing Viterbi's algorithm to compute the most likely weather
 def viterbi(sequence):
@@ -123,8 +128,7 @@ def viterbi(sequence):
         finalState=cold
 
     weatherSeq = traceback(finalState,bkPointer)
-    print('Weather sequence:\n')
-    print(weatherSeq)
+
 
 
 
